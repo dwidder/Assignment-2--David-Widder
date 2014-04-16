@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Prime Checker</title> 
+        <link rel="stylesheet" type="text/css" href="reset.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+        <script>
+        var vote_map = {}
+        var main = function () {"use strict";
+                var addVoteFromInputBox = function () {
+                    var input = $(".comment-input input").val();
+                    var $output;
+                    var output_string
+                    if(input % 1 === 0){
+                    if (input !== "") {// Testing that input box is non empty
+                    	console.log("Input is: " + input);
+                    	var square = Math.sqrt(input)
+                    	var isPrime = true;
+               			for(var i = 2; i <= square; i++){
+               				console.log("inside for loop!");
+        					if(input%i == 0){
+        						isPrime = false;
+        					}
+        				}
+        			if(isPrime){
+        				output_string = ("" + input + " is prime."); 
+        				console.log("" + input + " is prime.");
+        			}else{
+        				output_string = ("" + input + " is not prime."); 
+        				console.log("" + input + " is not prime.");
+        			}
+                    }
+                }else if(input != null){
+                	console.log("non null but invalid input")
+                	output_string = ("" + input + " is not valid input. Please enter an integer."); 
+                	console.log("" + input + " is not valid input.");
+                }
+                if(output_string == null){
+                	output_string = "Please enter an integer."
+                }
+
+                            $output = $("<p id =" + output_string + ">").text(output_string);
+                            //$output.append(" " + vote_map[$(".comment-input input").val()]);
+                            $output.hide(); 
+                            $output.prepend()
+                            $(".comments").prepend($output);
+                            $output.fadeIn();
+                            $(".comment-input input").val("");
+
+                };
+
+                $(".comment-input button").on("click", function (event) {
+                    addVoteFromInputBox();
+                });
+
+                $(".comment-input input").on("keypress", function (event) {
+                    if (event.keyCode === 13) {
+                        addVoteFromInputBox();
+                    }
+                    });
+            };
+
+            $(document).ready(main);
+        </script>
+    </head>
+    <body>
+        <header>
+            <h1>Prime Checker</h1>
+            <p>An app that checks whether a given number is a prime.</p>
+        </header>
+
+        <main>
+            <section class='comment-input'>
+            <h2>Enter the candidate number:</h2>
+            <input><button>+</button>
+            </section>
+            <h2>Results</h2>
+            <section class='comments'>
+
+            </section>
+        </main>
+
+        <footer>
+            <p><a href="http://www.davecotechsupport.com">www.davecotechsupport.com</a></p>
+        </footer>
+    </body>
+</html>
